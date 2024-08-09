@@ -1,0 +1,186 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbncnqx651cb3"]
+
+[ext_resource type="Script" path="res://src/budget_page/budget_page.gd" id="1_jq2p5"]
+
+[sub_resource type="Theme" id="Theme_1efss"]
+H1/base_type = &"Label"
+H1/font_sizes/font_size = 32
+H2/base_type = &"Label"
+H2/font_sizes/font_size = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijy1j"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8f1p"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="BudgetPage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1efss")
+script = ExtResource("1_jq2p5")
+positive_remaining_value = Color(0.439216, 1, 0.588235, 1)
+negative_remaining_value = Color(1, 0.4, 0.4, 1)
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.319
+anchor_right = 1.0
+anchor_bottom = 0.513
+offset_top = -0.100006
+offset_bottom = 0.299988
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Budget" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Budget"]
+layout_mode = 2
+theme_type_variation = &"H1"
+text = "Budget : "
+
+[node name="Label2" type="Label" parent="VBoxContainer/Budget"]
+self_modulate = Color(0.439216, 0.615686, 1, 1)
+layout_mode = 2
+theme_type_variation = &"H1"
+text = "99999"
+
+[node name="Remaining" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Remaining"]
+layout_mode = 2
+theme_type_variation = &"H1"
+text = "Remaining : "
+
+[node name="Label2" type="Label" parent="VBoxContainer/Remaining"]
+self_modulate = Color(0.439216, 1, 0.588235, 1)
+layout_mode = 2
+theme_type_variation = &"H1"
+text = "1224"
+
+[node name="Footer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.939
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.100037
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Add" type="Button" parent="Footer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Add Cost"
+
+[node name="History" type="Button" parent="Footer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "History"
+
+[node name="AddPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.71
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -6.10352e-05
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijy1j")
+
+[node name="Button" type="Button" parent="AddPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "Close"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AddPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.402
+anchor_right = 0.63
+anchor_bottom = 0.571
+offset_top = 0.0779953
+offset_right = -3.05176e-05
+offset_bottom = -0.0310059
+grow_vertical = 2
+theme_override_constants/separation = 70
+
+[node name="SpinBox" type="SpinBox" parent="AddPanel/HBoxContainer"]
+layout_mode = 2
+min_value = -99999.0
+max_value = 99999.0
+
+[node name="Confirm" type="Button" parent="AddPanel/HBoxContainer"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="HistoryPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.598
+anchor_right = 1.0
+anchor_bottom = 0.912
+offset_top = -0.200073
+offset_bottom = 0.199951
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b8f1p")
+
+[node name="Button" type="Button" parent="HistoryPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "close"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HistoryPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.724
+anchor_bottom = 1.0
+offset_right = -3.05176e-05
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="HistoryContainer" type="VBoxContainer" parent="HistoryPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "To Main Menu"
+
+[connection signal="button_up" from="Footer/Add" to="." method="_on_add_button_up"]
+[connection signal="button_up" from="Footer/History" to="." method="_on_history_button_up"]
+[connection signal="button_up" from="AddPanel/Button" to="." method="_on_add_panel_close_button_up"]
+[connection signal="button_up" from="AddPanel/HBoxContainer/Confirm" to="." method="_on_add_panel_confirm_button_up"]
+[connection signal="button_up" from="Button" to="." method="_on_go_to_main_menu_button_up"]
